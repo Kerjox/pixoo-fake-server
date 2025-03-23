@@ -1,0 +1,23 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    hostname: mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto:/mosquitto/config
+
+  fakepixoo:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "80:80/tcp"
+      - "53:53/udp"
+    environment:
+      LOG_LEVEL: INFO
+      LOCAL_IP: <LOCAL_MACHINE_IP>
+      OPENWEATHER_API_KEY: <YOUR_OPENWEATHER_API_KEY>
+      LOCATION_LOT: 0.00
+      LOCATION_LAT: 0.00
+      TZ: Europe/Madrid
