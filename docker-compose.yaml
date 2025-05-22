@@ -2,7 +2,6 @@ services:
   dhcpd:
     build: ./dhcp_server
     restart: unless-stopped
-    container_name: dhcp-server
     volumes:
       - ./dhcp_server/dhcpd.conf:/etc/dhcp/dhcpd.conf
     networks:
