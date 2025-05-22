@@ -7,7 +7,7 @@ services:
       - ./dhcp_server/dhcpd.conf:/etc/dhcpd.conf
     networks:
       default:
-        ipv4_address: 10.7.0.3
+        ipv4_address: 10.10.7.3
 
   mosquitto:
     image: eclipse-mosquitto:2.0
@@ -19,7 +19,7 @@ services:
       - ./mosquitto:/mosquitto/config
     networks:
       default:
-        ipv4_address: 10.7.0.2
+        ipv4_address: 10.10.7.2
 
 
   fakepixoo:
@@ -30,7 +30,7 @@ services:
       - "53:53/udp"
     environment:
       LOG_LEVEL: INFO
-      LOCAL_IP: 10.7.0.1
+      LOCAL_IP: 10.10.7.1
       MOSQUITTO_IP: 10.10.7.2
       OPENWEATHER_API_KEY: <YOUR_OPENWEATHER_API_KEY>
       LOCATION_LOT: 0.00
@@ -38,7 +38,7 @@ services:
       TZ: Europe/Madrid
     networks:
       default:
-        ipv4_address: 10.7.0.1
+        ipv4_address: 10.10.7.1
 
 networks:
   default:
