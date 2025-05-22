@@ -1,4 +1,14 @@
 services:
+  dhcpd:
+    build: ./dhcp_server
+    restart: unless-stopped
+    container_name: dhcp-server
+    volumes:
+      - ./dhcp_server/dhcpd.conf:/etc/dhcpd.conf
+    networks:
+      default:
+        ipv4_address: 10.7.0.3
+
   mosquitto:
     image: eclipse-mosquitto:2.0
     hostname: mosquitto
@@ -7,6 +17,10 @@ services:
       - "1883:1883"
     volumes:
       - ./mosquitto:/mosquitto/config
+    networks:
+      default:
+        ipv4_address: 10.7.0.2
+
 
   fakepixoo:
     build: .
@@ -16,8 +30,23 @@ services:
       - "53:53/udp"
     environment:
       LOG_LEVEL: INFO
-      LOCAL_IP: <LOCAL_MACHINE_IP>
+      LOCAL_IP: 10.7.0.1
+      MOSQUITTO_IP: 10.10.7.2
       OPENWEATHER_API_KEY: <YOUR_OPENWEATHER_API_KEY>
       LOCATION_LOT: 0.00
       LOCATION_LAT: 0.00
       TZ: Europe/Madrid
+    networks:
+      default:
+        ipv4_address: 10.7.0.1
+
+networks:
+  default:
+    name: <Network_NAME>
+    driver: ipvlan
+    driver_opts:
+      parent: ens192
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.7.0/29

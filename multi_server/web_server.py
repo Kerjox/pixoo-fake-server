@@ -9,7 +9,7 @@ app = Flask(__name__)
 def device_init():
     utc_timestamp = int(datetime.now(tz=timezone.utc).timestamp())
     packet_flag = request.json['PacketFlag']
-    local_ip = os.environ.get("LOCAL_IP", "127.0.0.1")
+    broker_ip = os.environ.get("MOSQUITTO_IP", "127.0.0.1")
     device_id = random.randint(100, 9999999)
     location_lot = os.environ.get("LOCATION_LOT", 0.0)
     location_lat = os.environ.get("LOCATION_LAT", 0.0)
@@ -18,7 +18,7 @@ def device_init():
         "ReturnCode": 0,
         "ReturnMessage": "",
         "DevicePublicIP": "1.1.1.1",
-        "IP": local_ip,
+        "IP": broker_ip,
         "lot": location_lot,
         "lat": location_lat,
         "SummerZone": 0,
