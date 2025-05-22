@@ -4,7 +4,7 @@ services:
     restart: unless-stopped
     container_name: dhcp-server
     volumes:
-      - ./dhcp_server/dhcpd.conf:/etc/dhcpd.conf
+      - ./dhcp_server/dhcpd.conf:/etc/dhcp/dhcpd.conf
     networks:
       default:
         ipv4_address: 10.10.7.3
