@@ -43,6 +43,7 @@ services:
 networks:
   default:
     name: <Network_NAME>
+    internal: true
     driver: ipvlan
     driver_opts:
       parent: ens192
